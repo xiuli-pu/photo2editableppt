@@ -1,0 +1,104 @@
+# 输入输出
+input_dir: data/raw_photos
+output_dir: output
+rectified_dir: output/rectified_images
+restored_dir: output/restored_images
+masks_dir: output/occlusion_masks
+crops_dir: output/extracted_crops
+report_csv: output/process_report.csv
+reference_pptx: output/01_reference_rectified_image_ppt.pptx
+editable_pptx: output/02_rebuilt_editable_ppt.pptx
+
+# 标准 PPT 页面，16:9
+canvas_width: 1920
+canvas_height: 1080
+slide_width_in: 13.333
+slide_height_in: 7.5
+
+# 同一页多张照片用于遮挡恢复，例如 001_a.jpg、001_b.jpg 会归为同一页 001
+group_same_slide_by_prefix: true
+
+# 课件区域检测：边缘检测 + 亮区检测 + 四边形/最小外接矩形多候选评分
+detection:
+  resize_long_side: 1400
+  target_aspect: 1.7777778
+  min_area_ratio: 0.035
+  ideal_area_ratio: 0.55
+  min_accept_score: 0.38
+  canny_low: 50
+  canny_high: 150
+  gaussian_kernel: 5
+  morph_kernel: 5
+  bright_morph_kernel: 21
+  bright_percentile: 72
+  dilate_iter: 2
+  erode_iter: 1
+  eps_ratios: [0.012, 0.018, 0.025, 0.04, 0.06]
+  fallback_to_full_image: true
+
+# 遮挡恢复
+restoration:
+  use_multi_image_median_fusion: true
+  diff_threshold: 45
+  single_image_inpaint: true
+  dark_occlusion_threshold: 45
+  min_occlusion_area_ratio: 0.004
+  inpaint_radius: 5
+
+# 图像增强：参数故意比上一版保守，避免颜色/背景被过度拉偏
+enhance:
+  enable: true
+  white_balance: true
+  white_balance_strength: 0.45
+  clahe: true
+  clahe_clip_limit: 1.4
+  clahe_tile_grid: 8
+  denoise: true
+  sharpen: true
+  sharpen_sigma: 1.0
+  sharpen_amount: 1.18
+  sharpen_blur_weight: -0.18
+
+# OCR：文字可编辑依赖 OCR。建议 Windows Python3.8 下用 paddlepaddle==2.6.2 + paddleocr==2.7.3
+ocr:
+  enable: true
+  engine: auto          # auto / paddle / tesseract / none
+  language: ch
+  paddle_ocr_version: PP-OCRv4
+  min_confidence: 0.45
+
+# 可编辑 PPT 重建
+rebuild:
+  font_name: Microsoft YaHei
+  # 可编辑文字颜色策略：
+  # contrast_with_background：按文字框下方背景自动选择黑/白高对比色。
+  #   绿色/蓝色/紫色/深色/饱和色背景 → 白字；白色/浅灰/浅黄背景 → 黑字。
+  # estimated_original：沿用 OCR 区域估计出的原文字颜色，不推荐，容易受投影和背景影响。
+  text_color_policy: contrast_with_background
+  contrast_text_mode: high_contrast_bw
+  dark_bg_luma_threshold: 170
+  color_bg_saturation_threshold: 0.18
+  color_bg_white_luma_limit: 220
+  background_sample_padding_px: 3
+  # visual_overlay：完整矫正图作为背景，再叠加可编辑文字，视觉最稳，但会出现“底图文字 + 可编辑文字”重复。
+  # clean_overlay：先从底图里清除 OCR 识别到的文字笔画，再叠加可编辑文字，避免重复。
+  background_mode: clean_overlay
+  # stroke_inpaint：只修掉文字笔画，尽量保留背景/图片；box_fill：整块文本框填充，去重更强但更容易有色块。
+  text_clean_method: stroke_inpaint
+  text_inpaint_padding_px: 3
+  text_inpaint_radius: 3
+  text_mask_dilate_px: 2
+  text_diff_threshold: 24
+  box_fill_padding_px: 1
+  text_box_padding_px: 4
+  textbox_padding_px: 4
+  font_size_factor: 0.68
+  min_font_pt: 6
+  max_font_pt: 40
+  # 默认关闭线条检测，上一版大量伪线条就是这里造成的。
+  detect_lines: false
+  line_min_length_px: 260
+  line_max_gap_px: 8
+  line_threshold: 120
+  max_lines: 60
+  line_width_pt: 0.75

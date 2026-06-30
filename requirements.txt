@@ -1,0 +1,8 @@
+opencv-python>=4.6.0
+numpy>=1.23.0
+Pillow>=10.0.0
+python-pptx>=0.6.23
+PyYAML>=6.0
+python -m pip install paddlepaddle==2.6.2 -i https://www.paddlepaddle.org.cn/packages/stable/cpu/
+python -m pip install lmdb==1.4.1 --only-binary=:all: -i https://pypi.org/simple
+python -m pip install paddleocr==2.7.3

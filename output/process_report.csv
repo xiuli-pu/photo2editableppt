@@ -1,0 +1,13 @@
+﻿slide_key,input_files,num_input_images,quad_found_count,rectify_status,restore_status,ocr_text_count,graphic_count,line_count,avg_quad_score,restored_image
+1,1.jpg,1,1,quad_warped:bright_quad,single_no_occlusion_detected,16,0,0,0.9025,output\restored_images\1_restored.png
+2,2.jpg,1,1,quad_warped:bright_quad,single_no_occlusion_detected,11,0,0,0.9144,output\restored_images\2_restored.png
+3,3.jpg,1,1,quad_warped:bright_quad,single_no_occlusion_detected,6,0,0,0.8512,output\restored_images\3_restored.png
+4,4.jpg,1,1,quad_warped:bright_quad,single_inpaint_background_only,14,0,0,0.8347,output\restored_images\4_restored.png
+5,5.jpg,1,1,quad_warped:bright_quad,single_no_occlusion_detected,7,0,0,0.9354,output\restored_images\5_restored.png
+6,6.jpg,1,1,quad_warped:bright_quad,single_no_occlusion_detected,36,0,0,1.0215,output\restored_images\6_restored.png
+7,7.jpg,1,1,quad_warped:bright_quad,single_inpaint_background_only,9,0,0,0.9401,output\restored_images\7_restored.png
+8,8.jpg,1,1,quad_warped:bright_quad,single_no_occlusion_detected,14,0,0,1.0147,output\restored_images\8_restored.png
+9,9.jpg,1,1,quad_warped:bright_quad,single_inpaint_background_only,9,0,0,0.8496,output\restored_images\9_restored.png
+10,10.jpg,1,1,quad_warped:bright_quad,single_inpaint_background_only,11,0,0,0.8733,output\restored_images\10_restored.png
+11,11.jpg,1,1,quad_warped:bright_quad,single_no_occlusion_detected,7,0,0,0.8178,output\restored_images\11_restored.png
+12,12.jpg,1,1,quad_warped:bright_quad,single_inpaint_background_only,7,0,0,0.8615,output\restored_images\12_restored.png
