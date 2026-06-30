@@ -11,9 +11,16 @@
 ## 运行
 
 ```bash
+解压缩附带的代码项目压缩包，拍摄的ppt数据集图片在data/raw_photos文件夹中
 cd photo2editableppt
+conda create env
+conda activate env
 python -m pip install -r requirements.txt
-python run.py --debug
+python run.py
+最后的输出：
+output/01_reference_rectified_image_ppt.pptx
+output/02_rebuilt_editable_ppt.pptx
+在我的解压文件中也可以直接看到两个生成的ppt文件
 ```
 
 输出：
